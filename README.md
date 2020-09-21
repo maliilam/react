@@ -1,2 +1,2 @@
 # react
-react js
+Todo list app with react js 
