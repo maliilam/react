@@ -18,16 +18,19 @@ class App extends Component{
       })
   }
 
-  markComplete = (id) => {
-    this.setState({
-      todos: this.state.todos.map(todo => {
-        if (todo.id === id) {
-          todo.completed = !todo.completed
+  markComplete = (todo) => {
+    axios.put(`https://jsonplaceholder.typicode.com/todos/${todo.id}`, {
+      ...todo, completed: !todo.completed
+    }).then(res => this.setState({
+      todos: this.state.todos.map(td => {
+        if (td.id === todo.id) {
+          td.completed = !td.completed
         }
-        return todo;
+        return td;
       })
-    })
+    }))
   }
+  
 
   delTodo = (id) => {
     axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
