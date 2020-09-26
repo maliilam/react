@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route} from 'react-router-dom'
 import Todos from './components/Todos';
 import Header from './components/layout/Header';
-import AddTodo from './components/AddTodo';
+import EditTodo from './components/EditTodo';
 import About from './components/pages/About'
 import axios from 'axios';
 
@@ -24,26 +24,33 @@ class App extends Component{
     }).then(res => this.setState({
       todos: this.state.todos.map(td => {
         if (td.id === todo.id) {
-          td.completed = !td.completed
+          td.completed = res.data.completed
         }
         return td;
       })
     }))
   }
   
+  addTodo = (todo) => {
+    axios.post('https://jsonplaceholder.typicode.com/todos', {
+      title: todo.title,
+      completed: false
+    }).then(res => this.setState({ todos : 
+      [...this.state.todos, res.data]}))
+  }
+
+  editTodo = (todo) => {
+    axios.put(`https://jsonplaceholder.typicode.com/todos/${todo.id}`, todo).then(res => this.setState({
+      todos: this.state.todos.map(td => {
+        return td.id === todo.id ? res.data : td;
+      })
+    }))
+  }
 
   delTodo = (id) => {
     axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
       .then(res => this.setState({ todos: [...this.state.todos.filter(todo =>
         todo.id !== id)]}))
-  }
-
-  addTodo = (title) => {
-    axios.post('https://jsonplaceholder.typicode.com/todos', {
-      title,
-      completed: false
-    }).then(res => this.setState({ todos : 
-      [...this.state.todos, res.data]}))
   }
   
   render() {
@@ -53,10 +60,11 @@ class App extends Component{
           <Header/>
           <Route exact path="/" render={props => (
             <React.Fragment>
-              <AddTodo addTodo={this.addTodo}/>
+              <EditTodo editTodo={this.addTodo}/>
               <Todos 
                 todos={this.state.todos} 
                 markComplete={this.markComplete}
+                editTodo={this.editTodo}
                 delTodo={this.delTodo}
               />
             </React.Fragment>

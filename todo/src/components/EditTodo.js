@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-export default class AddTodo extends Component {
+export default class EditTodo extends Component {
     state = {
         title: ""
     }
@@ -12,13 +12,13 @@ export default class AddTodo extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        this.props.addTodo(this.state.title)
+        this.props.editTodo({...this.props.todo, title: this.state.title})
         this.setState({ title: '' })
     }
 
     render() {
         return (
-            <form onSubmit={this.onSubmit} style={{display: 'flex'}}>
+            <form onSubmit={this.onSubmit} style={formStyle}>
                 <input 
                     type='text' 
                     name='title' 
@@ -38,7 +38,11 @@ export default class AddTodo extends Component {
 }
 
 
-AddTodo.propTypes = {
-    addTodo: PropTypes.func.isRequired    
+EditTodo.propTypes = {
+    editTodo: PropTypes.func.isRequired    
 }
   
+const formStyle = {
+    display: 'flex',
+    flexDirection: 'row'    
+}
