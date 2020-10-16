@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { addTodo } from '../actions'
 
 const AddTodo = ({ dispatch }) => {
@@ -16,11 +17,12 @@ const AddTodo = ({ dispatch }) => {
                 }}
             >
                 { /* Callback Refs:  https://reactjs.org/docs/refs-and-the-dom.html#callback-refs0 */ }
-                <input ref={node => (input = node)}/>
+                <input ref={node => (input = node)} />
                 <button type="submit">Add Todo</button>
             </form>
         </div>
     )
 }
 
-export default AddTodo
+// https://react-redux.js.org/api/connect#connect
+export default connect()(AddTodo)
