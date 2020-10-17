@@ -7,7 +7,7 @@ const TodoList = ({ todos }) => {
     return (
         <div>
             {todos.map(todo => (
-                <div key={todo.id}>{todo.text}-{todo.completed}-{todo.id}</div>
+                <div key={todo.id}>{todo.text}-{String(todo.completed)}-{todo.id}</div>
             ))}
         </div>
     )
