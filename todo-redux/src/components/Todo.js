@@ -1,9 +1,10 @@
 import React from 'react'
 
-const Todo = ({text, completed}) => (
-    <li>
+const Todo = ({text, completed, onChange}) => (
+    <div>
+        <input type="checkbox" checked={completed} onChange={onChange} />
         {text} - {String(completed)}
-    </li>
+    </div>
 )
 
 export default Todo
