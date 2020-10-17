@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Todo = ({title, completed}) => (
+const Todo = ({text, completed}) => (
     <li>
-        {title} - {completed}
+        {text} - {String(completed)}
     </li>
 )
 

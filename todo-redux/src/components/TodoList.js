@@ -3,11 +3,10 @@ import { connect } from 'react-redux'
 import Todo from './Todo'
 
 const TodoList = ({ todos }) => {
-    console.log("todos:", todos)
     return (
         <div>
             {todos.map(todo => (
-                <div key={todo.id}>{todo.text}-{String(todo.completed)}-{todo.id}</div>
+                <Todo key={todo.id} {...todo}/>
             ))}
         </div>
     )
