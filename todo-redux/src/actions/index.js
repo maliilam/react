@@ -10,6 +10,12 @@ export const toggleTodo = id => ({
     id
 })
 
+export const updateTodo = (id, text) => ({
+    type: 'UPDATE_TODO',
+    id,
+    text
+})
+
 export const deleteTodo = id => ({
     type: 'DELETE_TODO',
     id
