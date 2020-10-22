@@ -47,7 +47,7 @@ export default class Todo extends Component {
                     : <div className="todo-row">
                         <input type="checkbox" checked={completed} onChange={toggleTodo} />
                         <div 
-                            style={{textDecoration: completed ? 'line-through' : 'none','overflow-wrap': 'anywhere'}}
+                            style={{textDecoration: completed ? 'line-through' : 'none','overflowWrap': 'anywhere'}}
                             onClick={this.startEdit}
                         >
                             {text}

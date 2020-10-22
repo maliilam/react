@@ -1,12 +1,24 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Todo from './Todo'
-import { toggleTodo, updateTodo, deleteTodo } from '../actions'
+import { toggleTodo, updateTodo, deleteTodo, Filters } from '../actions'
 
-const TodoList = ({ todos, toggleTodo, updateTodo, deleteTodo }) => {
+const TodoList = ({ todos, toggleTodo, updateTodo, deleteTodo, filter }) => {
+    const filterTodo = (todo) => {
+        switch(filter) {
+            case Filters.SHOW_COMPLETED:
+                return todo.completed === true
+            case Filters.SHOW_ACTIVE:
+                return todo.completed === false
+            default:
+                return true            
+        }
+    }
+
     return (
         <div>
-            {todos.map(todo => (
+            {todos.filter(todo => filterTodo(todo))
+                .map(todo => (
                 <Todo 
                     key={todo.id} 
                     {...todo} 
@@ -20,7 +32,8 @@ const TodoList = ({ todos, toggleTodo, updateTodo, deleteTodo }) => {
 }
 
 const mapStateToProps = state => ({
-    todos: state.todos
+    todos: state.todos,
+    filter: state.filter
 })
 
 const mapDispatchToProps = dispatch => ({
