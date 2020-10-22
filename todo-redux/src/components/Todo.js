@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import './Todo.css'
 
 export default class Todo extends Component {
     static propTypes = {
@@ -43,16 +44,18 @@ export default class Todo extends Component {
                         <input type="text" value={this.state.text} onChange={this.updateText} />
                         <button onClick={this.updateTodo} >update</button>
                       </React.Fragment>
-                    : <React.Fragment>
+                    : <div className="todo-row">
                         <input type="checkbox" checked={completed} onChange={toggleTodo} />
-                        <span 
-                            style={{textDecoration: completed ? 'line-through' : 'none'}}
+                        <div 
+                            style={{textDecoration: completed ? 'line-through' : 'none','overflow-wrap': 'anywhere'}}
                             onClick={this.startEdit}
                         >
                             {text}
-                        </span>
-                        <button onClick={deleteTodo} >x</button>
-                      </React.Fragment>
+                        </div>
+                        <div>
+                            <button onClick={deleteTodo} >x</button>
+                        </div>
+                      </div>
                 }
             </div>
         )
