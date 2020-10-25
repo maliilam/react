@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Todo from './Todo'
-import { requestGetTodos, toggleTodo, updateTodo, deleteTodo, Filters } from '../actions'
+import { getTodos, toggleTodo, updateTodo, deleteTodo, Filters } from '../actions'
 
 class TodoList extends Component {
     componentDidMount() {
@@ -46,7 +46,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    getTodos: () => requestGetTodos(dispatch),
+    getTodos: () => getTodos(dispatch),
     toggleTodo: id => dispatch(toggleTodo(id)),
     updateTodo: (id, title) => dispatch(updateTodo(id, title)),
     deleteTodo: id => dispatch(deleteTodo(id))

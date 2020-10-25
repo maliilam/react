@@ -1,17 +1,23 @@
 let nextTodoId = 0
 
-export const requestGetTodos = dispatch => {
+export const getTodos = dispatch => {
     fetch("https://jsonplaceholder.typicode.com/todos?_limit=5'")
         .then(res => res.json())
         .then(res => {
             if (res.error) {
-                throw(res.error)
+                dispatch(requestFail(res.error, "getTodos"))
             }
-            dispatch(getTodos(res))
+            dispatch(getTodosOk(res))
         })
 }
 
-export const getTodos = todos => ({
+export const requestFail = (error, request) => ({
+    type: 'REQUEST_FAIL',
+    request,
+    error
+})
+
+export const getTodosOk = todos => ({
     type: 'GET_TODOS',
     todos
 })

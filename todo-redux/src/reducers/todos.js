@@ -25,6 +25,9 @@ const todos = (state = [], action) => {
                 : td)
         case 'DELETE_TODO':
             return [...state.filter(td => td.id !== action.id)]
+        case 'REQUEST_FAIL':
+            // TODO: error handling/displaying could be added.
+            return state
         default:
             return state
     }
