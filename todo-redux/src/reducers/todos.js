@@ -9,14 +9,14 @@ const todos = (state = [], action) => {
                 ...state,
                 {
                     id: action.id,
-                    text: action.text,
+                    title: action.title,
                     completed: false
                 }
             ]
         case 'UPDATE_TODO':
             let old = state.find(todo => todo.id === action.id)
             return state.map(td => td.id === action.id
-                ? { ...old, text: action.text }
+                ? { ...old, title: action.title }
                 : td)
         case 'TOGGLE_TODO':
             let todo = state.find(todo => todo.id === action.id)

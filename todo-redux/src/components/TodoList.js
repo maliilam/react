@@ -4,8 +4,13 @@ import Todo from './Todo'
 import { requestGetTodos, toggleTodo, updateTodo, deleteTodo, Filters } from '../actions'
 
 class TodoList extends Component {
+    componentDidMount() {
+        const { getTodos } = this.props
+        getTodos()
+    }
+
     render() {
-        const { todos, filter, requestGetTodos, toggleTodo, updateTodo, deleteTodo } = this.props
+        const { todos, filter, toggleTodo, updateTodo, deleteTodo } = this.props
         
         const filterTodo = (todo) => {
             switch(filter) {
@@ -26,7 +31,7 @@ class TodoList extends Component {
                         key={todo.id} 
                         {...todo} 
                         toggleTodo={() => toggleTodo(todo.id)}
-                        updateTodo={text => updateTodo(todo.id, text)}
+                        updateTodo={title => updateTodo(todo.id, title)}
                         deleteTodo={() => deleteTodo(todo.id)}
                     />
                 ))}
@@ -41,10 +46,11 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    requestGetTodos: () => dispatch(requestGetTodos),
+    getTodos: () => requestGetTodos(dispatch),
     toggleTodo: id => dispatch(toggleTodo(id)),
-    updateTodo: (id, text) => dispatch(updateTodo(id, text)),
+    updateTodo: (id, title) => dispatch(updateTodo(id, title)),
     deleteTodo: id => dispatch(deleteTodo(id))
 })
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList)

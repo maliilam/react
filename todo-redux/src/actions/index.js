@@ -1,16 +1,14 @@
 let nextTodoId = 0
 
-export const requestGetTodos = () => {
-    return dispatch => {
-        fetch("https://jsonplaceholder.typicode.com/todos?_limit=5'")
-        .then(res => res.json)
+export const requestGetTodos = dispatch => {
+    fetch("https://jsonplaceholder.typicode.com/todos?_limit=5'")
+        .then(res => res.json())
         .then(res => {
             if (res.error) {
                 throw(res.error)
             }
-            dispatch(getTodos(res.data))
+            dispatch(getTodos(res))
         })
-    }
 }
 
 export const getTodos = todos => ({
@@ -18,10 +16,10 @@ export const getTodos = todos => ({
     todos
 })
 
-export const addTodo = text => ({
+export const addTodo = title => ({
     type: 'ADD_TODO',
     id: nextTodoId++,
-    text
+    title
 })
 
 export const toggleTodo = id => ({
@@ -29,10 +27,10 @@ export const toggleTodo = id => ({
     id
 })
 
-export const updateTodo = (id, text) => ({
+export const updateTodo = (id, title) => ({
     type: 'UPDATE_TODO',
     id,
-    text
+    title
 })
 
 export const deleteTodo = id => ({

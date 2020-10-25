@@ -4,7 +4,7 @@ import './Todo.css'
 
 export default class Todo extends Component {
     static propTypes = {
-        text: PropTypes.string,
+        title: PropTypes.string,
         completed: PropTypes.bool,
         toggleTodo: PropTypes.func,
         updateTodo: PropTypes.func,
@@ -13,7 +13,7 @@ export default class Todo extends Component {
 
     state = {
         editing: false,
-        text: this.props.text
+        title: this.props.title
     }
 
     startEdit = () => {
@@ -22,9 +22,9 @@ export default class Todo extends Component {
         })
     }
 
-    updateText = event => {
+    updateTitle = event => {
         this.setState({
-            text: event.target.value
+            title: event.target.value
         })
     }
 
@@ -32,16 +32,16 @@ export default class Todo extends Component {
         this.setState({
             editing: false
         })
-        this.props.updateTodo(this.state.text)
+        this.props.updateTodo(this.state.title)
     }
 
     render() {
-        const { text, completed, toggleTodo, deleteTodo } = this.props
+        const { title, completed, toggleTodo, deleteTodo } = this.props
         return (
             <div>
                 {this.state.editing
                     ? <React.Fragment>
-                        <input type="text" value={this.state.text} onChange={this.updateText} />
+                        <input type="text" value={this.state.title} onChange={this.updateTitle} />
                         <button onClick={this.updateTodo} >update</button>
                       </React.Fragment>
                     : <div className="todo-row">
@@ -50,7 +50,7 @@ export default class Todo extends Component {
                             style={{textDecoration: completed ? 'line-through' : 'none','overflowWrap': 'anywhere'}}
                             onClick={this.startEdit}
                         >
-                            {text}
+                            {title}
                         </div>
                         <div>
                             <button onClick={deleteTodo} >x</button>
