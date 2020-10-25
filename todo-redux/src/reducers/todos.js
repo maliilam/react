@@ -7,11 +7,7 @@ const todos = (state = [], action) => {
         case 'ADD_TODO':
             return [
                 ...state,
-                {
-                    id: action.id,
-                    title: action.title,
-                    completed: false
-                }
+                { ...action.todo }
             ]
         case 'UPDATE_TODO':
             let old = state.find(todo => todo.id === action.id)
@@ -27,6 +23,7 @@ const todos = (state = [], action) => {
             return [...state.filter(td => td.id !== action.id)]
         case 'REQUEST_FAIL':
             // TODO: error handling/displaying could be added.
+            console.error('REQUEST_FAIL', action.name, action.details)
             return state
         default:
             return state

@@ -12,7 +12,7 @@ const AddTodo = ({ dispatch }) => {
                     if (!input.value.trim()) {
                         return
                     }
-                    dispatch(addTodo(input.value))
+                    addTodo(input.value)(dispatch)
                     input.value = ''
                 }}
             >
