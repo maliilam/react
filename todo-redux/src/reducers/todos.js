@@ -11,6 +11,7 @@ const todos = (state = [], action) => {
             ]
         case 'UPDATE_TODO':
             let old = state.find(todo => todo.id === action.id)
+            console.log("old:", old)
             return state.map(td => td.id === action.id
                 ? { ...old, title: action.title }
                 : td)

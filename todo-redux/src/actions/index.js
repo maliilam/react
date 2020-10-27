@@ -74,10 +74,19 @@ export const toggleTodo = (id, completed) => request({
     }
 })
 
-export const updateTodo = (id, title) => ({
+export const updateTodoOk = ({id, title}) => ({
     type: 'UPDATE_TODO',
     id,
     title
+})
+
+export const updateTodo = (id, title) => request({
+    url: baseUrl + '/' + id,
+    method: 'PUT',
+    okAction: updateTodoOk,
+    data: {
+        title
+    }
 })
 
 export const deleteTodo = id => ({

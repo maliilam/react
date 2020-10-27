@@ -18,7 +18,8 @@ export default class Todo extends Component {
 
     startEdit = () => {
         this.setState({
-            editing: true
+            editing: true,
+            title: this.props.title
         })
     }
 
@@ -35,6 +36,13 @@ export default class Todo extends Component {
         this.props.updateTodo(this.state.title)
     }
 
+    cancelEdit = () => {
+        this.setState({
+            editing: false,
+            title: ""
+        })
+    }
+
     render() {
         const { title, completed, toggleTodo, deleteTodo } = this.props
         return (
@@ -43,6 +51,7 @@ export default class Todo extends Component {
                     ? <React.Fragment>
                         <input type="text" value={this.state.title} onChange={this.updateTitle} />
                         <button onClick={this.updateTodo} >update</button>
+                        <button onClick={this.cancelEdit} >cancel</button>
                       </React.Fragment>
                     : <div className="todo-row">
                         <input type="checkbox" checked={completed} onChange={toggleTodo} />
