@@ -1,5 +1,10 @@
 .todo-row {
     max-width: 500px;
     display: grid;
-    grid-template-columns: 1fr 9fr 1fr;
+    grid-template-columns: 1fr 8fr 4fr;
+}
+.todo-editing {
+    max-width: 500px;
+    display: grid;
+    grid-template-columns: 1fr 8fr 2fr 2fr;
 }

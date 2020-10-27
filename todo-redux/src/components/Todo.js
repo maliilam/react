@@ -48,11 +48,12 @@ export default class Todo extends Component {
         return (
             <div>
                 {this.state.editing
-                    ? <React.Fragment>
+                    ? <div className="todo-editing">
+                        <input type="checkbox" checked={completed} disabled/>
                         <input type="text" value={this.state.title} onChange={this.updateTitle} />
                         <button onClick={this.updateTodo} >update</button>
                         <button onClick={this.cancelEdit} >cancel</button>
-                      </React.Fragment>
+                      </div>
                     : <div className="todo-row">
                         <input type="checkbox" checked={completed} onChange={toggleTodo} />
                         <div 
