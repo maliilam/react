@@ -31,7 +31,7 @@ class TodoList extends Component {
                     <Todo 
                         key={todo.id} 
                         {...todo} 
-                        toggleTodo={() => toggleTodo(todo.id)}
+                        toggleTodo={() => toggleTodo(todo.id, !todo.completed)}
                         updateTodo={title => updateTodo(todo.id, title)}
                         deleteTodo={() => deleteTodo(todo.id)}
                     />
@@ -48,7 +48,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     getTodos: () => dispatch(getTodos()),
-    toggleTodo: id => dispatch(toggleTodo(id)),
+    toggleTodo: (id, completed) => dispatch(toggleTodo(id, completed)),
     updateTodo: (id, title) => dispatch(updateTodo(id, title)),
     deleteTodo: id => dispatch(deleteTodo(id))
 })

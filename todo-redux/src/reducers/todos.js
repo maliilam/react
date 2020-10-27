@@ -17,7 +17,7 @@ const todos = (state = [], action) => {
         case 'TOGGLE_TODO':
             let todo = state.find(todo => todo.id === action.id)
             return state.map(td => td.id === action.id
-                ? { ...todo, completed: !todo.completed }
+                ? { ...todo, completed: action.completed }
                 : td)
         case 'DELETE_TODO':
             return [...state.filter(td => td.id !== action.id)]

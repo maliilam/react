@@ -59,9 +59,19 @@ export const addTodo = title => request({
     }
 })
 
-export const toggleTodo = id => ({
+export const toggleTodoOk = ({id, completed}) => ({
     type: 'TOGGLE_TODO',
-    id
+    id,
+    completed
+})
+
+export const toggleTodo = (id, completed) => request({
+    url: baseUrl + '/' + id,
+    method: 'PUT',
+    okAction: toggleTodoOk,
+    data: {
+        completed
+    }
 })
 
 export const updateTodo = (id, title) => ({
