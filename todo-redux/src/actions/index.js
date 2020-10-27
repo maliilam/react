@@ -1,6 +1,7 @@
 let nextTodoId = 0
 
-export const getTodos = dispatch => fetch("https://jsonplaceholder.typicode.com/todos?_limit=5'")
+// relies on thunk to provide dispatch (and if needed, getState, also)
+export const getTodos = () => dispatch => fetch("https://jsonplaceholder.typicode.com/todos?_limit=5'")
     .then(res => {
         if (res.ok) {
             return res.json()
