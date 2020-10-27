@@ -1,15 +1,5 @@
+const baseUrl = "https://jsonplaceholder.typicode.com/todos"
 let nextTodoId = 0
-
-// relies on thunk to provide dispatch (and if needed, getState, also)
-export const getTodos = () => dispatch => fetch("https://jsonplaceholder.typicode.com/todos?_limit=5'")
-    .then(res => {
-        if (res.ok) {
-            return res.json()
-        }
-        throw res
-    })
-    .then(res => dispatch(getTodosOk(res)))
-    .catch(error => dispatch(requestFail("getTodos", error)))
 
 export const requestFail = (name, details) => ({
     type: 'REQUEST_FAIL',
@@ -17,23 +7,20 @@ export const requestFail = (name, details) => ({
     details
 })
 
-export const getTodosOk = todos => ({
-    type: 'GET_TODOS',
-    todos
-})
-
-export const addTodo = title => dispatch => {
-    const todo = {
-        title,
-        completed: false
-    }
-
-    fetch('https://jsonplaceholder.typicode.com/todos', {
-        method: 'POST',
+// relies on thunk to provide dispatch (and if needed, getState, also)
+const request = ({
+    url = baseUrl,
+    method = 'GET', 
+    data,
+    okAction,
+    failAction = requestFail
+    }) => dispatch => 
+    fetch(url, {
+        method: method,
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(todo)
+        body: data && JSON.stringify(data)
     })
     .then(res => {
         if (res.ok) {
@@ -41,18 +28,35 @@ export const addTodo = title => dispatch => {
         }
         throw res
     })
-    .then(res => {
-        let todo = { ...res }
-        // This is for jsonplaceholder only as new id is always 201
-        todo.id += nextTodoId++
-        return dispatch(addTodoOk(todo))
-    })
-    .catch(error => dispatch(requestFail("addTodo", error)))
-}
+    .then(res => dispatch(okAction(res)))
+    .catch(error => dispatch(failAction(method + ' ' + url, error)))
+
+export const getTodosOk = todos => ({
+    type: 'GET_TODOS',
+    todos
+})
+    
+export const getTodos = () => request({
+    url: baseUrl + '?_limit=8',
+    okAction: getTodosOk
+})
 
 export const addTodoOk = todo => ({
     type: 'ADD_TODO',
-    todo
+    todo: {
+        ...todo,
+        // This is for jsonplaceholder only as new id is always 201
+        id: todo.id + nextTodoId++
+    }
+})
+
+export const addTodo = title => request({
+    method: 'POST',
+    okAction: addTodoOk,
+    data : {
+        title,
+        completed: false
+    }
 })
 
 export const toggleTodo = id => ({
