@@ -89,9 +89,16 @@ export const updateTodo = (id, title) => request({
     }
 })
 
-export const deleteTodo = id => ({
+export const deleteTodoOk = id => ({
     type: 'DELETE_TODO',
     id
+})
+
+export const deleteTodo = id => request({
+    url: baseUrl + '/' + id,
+    method: 'DELETE',
+    okAction: () => deleteTodoOk(id),
+    data: {}
 })
 
 export const setFilter = filter => ({
