@@ -1,4 +1,5 @@
-const baseUrl = "https://jsonplaceholder.typicode.com/todos"
+//const baseUrl = "https://jsonplaceholder.typicode.com/todos"
+const baseUrl = "http://localhost:3000/api/todos"
 let nextTodoId = 0
 
 export const requestFail = (name, details) => ({
